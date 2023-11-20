@@ -14,5 +14,6 @@ self.addEventListener('fetch', (event) => {
       .then((response) => {
         return response || fetch(event.request)
       })
+      .catch((error) => {console.log(error)})
   )
 })
