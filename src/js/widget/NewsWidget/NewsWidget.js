@@ -1,29 +1,18 @@
+import { ajax } from 'rxjs/ajax'
+import { map, catchError,} from 'rxjs/operators'
+import { of } from 'rxjs'
+import convertTimestampToDate  from "../../components/convertTimestamp"
+
 export default class NewsWidget {
     constructor(element, url) {
         this.element = element;
         this.url = url;
         this.newsWidget = null
-        this.newsContainer = null
+        this.newsContainer = document.querySelector('.news__container')
         this.createDom()
+        this.getPreloadMassage()
+        // this.createNews()
 
-// test data genereate
-
-        let n = 0
-        while (n < 5) {
-        this.createPreloadMassage()
-        // this.createMassage(new Date(Date.now()).toLocaleString(), 'https://img.freepik.com/free-photo/a-cupcake-with-a-strawberry-on-top-and-a-strawberry-on-the-top_1340-35087.jpg?w=826&t=st=1700057542~exp=1700058142~hmac=a59eb95998cafeaf27ccfbc98391c8a411a603c188f0d6e2ecc49671f509ca9e', 'Какой то текст для теста новости , выйдет 07ю18 93б ну и еще что то ')
-        n++   } 
-
-        setTimeout(() => {
-            this.clearNews()
-            n = 0
-            while (n < 5) {
-            // this.createPreloadMassage()
-            this.createMassage(new Date(Date.now()).toLocaleString(), 'https://img.freepik.com/free-photo/a-cupcake-with-a-strawberry-on-top-and-a-strawberry-on-the-top_1340-35087.jpg?w=826&t=st=1700057542~exp=1700058142~hmac=a59eb95998cafeaf27ccfbc98391c8a411a603c188f0d6e2ecc49671f509ca9e', 'Какой то текст для теста новости , выйдет 07ю18 93б ну и еще что то ')
-            n++   } 
-        
-        }, 7000)
-// stop test data
         
     }
     createDom(){
@@ -36,7 +25,7 @@ export default class NewsWidget {
 
         const title = document.createElement('span');
         title.className = 'news__title'
-        title.textContent = 'Новости мира кино'
+        title.textContent = 'Новости мира музыки'
 
         const update = document.createElement('span');
         update.className = 'news__update'
@@ -57,14 +46,17 @@ export default class NewsWidget {
 
         const newsDate = document.createElement('span');
         newsDate.className = 'news__date'
-        newsDate.textContent = date
+        newsDate.textContent = convertTimestampToDate(date)
 
         const newsData = document.createElement('div');
         newsData.className = 'news__data'
 
         const newsImg = document.createElement('img');
         newsImg.className = 'news__img'
-        newsImg.src = img
+        if(img){newsImg.src = img}
+        else {newsImg.src ='https://vjoy.cc/wp-content/uploads/2019/10/muzyka-dlya-zdorovya-serdtsa.jpg'}
+
+
         
         const newsTitle = document.createElement('span');
         newsTitle.className = 'news__title'
@@ -114,6 +106,12 @@ export default class NewsWidget {
         this.newsContainer.append(newMessage)   
 
     }
+    getPreloadMassage(){ 
+        let n = 0
+        while (n < 5) {
+        this.createPreloadMassage()
+        n++   } 
+    }
 
     clearNews (){
         this.newsContainer.remove()
@@ -121,6 +119,45 @@ export default class NewsWidget {
         newsContainer.className = 'news__container'
         this.newsContainer = newsContainer
         this.newsWidget.append(newsContainer)
+
+    }
+
+    createNews (){
+        ajax.getJSON(this.url + "/news")
+        .pipe(
+            map(data => data.news),
+            catchError(err =>  of(500) )
+            )
+        .subscribe(data => {
+            if (data === 500) {
+                console.log('вывод ошибки')
+                const errorMessage = document.createElement('div')
+                errorMessage.className = 'error__message'
+                const text1 = document.createElement('span')
+                text1.textContent = 'Не удалось загрузить данные'
+                const text2 = document.createElement('span')
+                text2.textContent = 'Проверьте подключение'
+                const text3 = document.createElement('span')
+                text3.textContent = 'и обновите страницу.'
+                // const text = `Не удалось загрузить данные. \nПроверьте подключение \nи обновите страницу.`
+                errorMessage.append(text1, text2, text3)
+                this.newsWidget.append(errorMessage)
+                return
+            }
+            this.clearNews()
+            for (let news of data){
+                this.checkUrl(news.image)
+                .then(() => this.createMassage(news.received, news.image, news.title))
+                .catch(()=> {
+                    news.image = null
+                    this.createMassage(news.received, news.image, news.title)
+                })             
+            }
+        
+        })
+    }
+    async checkUrl(url){
+        await fetch(url)
 
     }
 }
