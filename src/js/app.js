@@ -15,6 +15,7 @@ if (navigator.serviceWorker) {
         console.log('sw registered')
       }
     } catch (e) {
+
       console.log(e)
     }
   })
