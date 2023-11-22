@@ -2,7 +2,7 @@ import NewsWidget from './widget/NewsWidget/NewsWidget'
 
 const place = document.querySelector('main')
 // const serverUrl = "http://localhost:7070"
-const serverUrl = 'https://ahj-webworker-server-task1.onrender.com:443'
+const serverUrl = 'https://ahj-webworker-server-task1.onrender.com'
 const news = new NewsWidget(place, serverUrl)
 
 if (navigator.serviceWorker) {
