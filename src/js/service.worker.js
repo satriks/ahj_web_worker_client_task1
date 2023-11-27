@@ -4,15 +4,20 @@ import { clientsClaim } from 'workbox-core'
 
 const version = 'v'
 const cacheName = `ahj-service-${version}`
-const files = [
-  '/',
-  '/main.css'
-  // '/main.js'
-]
+// const files = [
+//   '/',
+//   '/main.css'
+//   '/main.js'
+// ]
 
 self.addEventListener('install', (event) => {
   caches.open(cacheName)
-    .then((cache) => cache.addAll(files))
+    .then((cache) => {
+      cache.add('/')
+      cache.add('/main.css')
+      cache.add('/main.js')
+    })
+
   console.log('install')
   self.skipWaiting()
 })
