@@ -11,13 +11,6 @@ const cacheName = `ahj-service-${version}`
 // ]
 
 self.addEventListener('install', (event) => {
-  caches.open(cacheName)
-    .then((cache) => {
-      cache.add('/')
-      cache.add('/main.css')
-      cache.add('/main.js')
-    })
-
   console.log('install')
   self.skipWaiting()
 })
@@ -25,6 +18,12 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   console.log('activate')
   clientsClaim()
+  caches.open(cacheName)
+    .then((cache) => {
+      cache.add('/')
+      cache.add('/main.css')
+      cache.add('/main.js')
+    })
 })
 
 self.addEventListener('fetch', (event) => {
