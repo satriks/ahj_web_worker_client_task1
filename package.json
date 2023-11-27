@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "lint": "eslin .",
+    "lint": "eslint .",
     "test": "jest",
     "coverage": "jest --coverage",
     "doc": "jsdoc -c jsdoc.conf.json",
