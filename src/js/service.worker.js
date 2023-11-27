@@ -5,7 +5,7 @@ import { clientsClaim } from 'workbox-core'
 const version = 'v'
 const cacheName = `ahj-service-${version}`
 const files = [
-  '/index.html',
+  '/',
   '/main.css',
   '/main.js'
 ]
