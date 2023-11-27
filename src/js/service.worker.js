@@ -15,10 +15,10 @@ self.addEventListener('install', (event) => {
   self.skipWaiting()
 })
 
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', async (event) => {
   console.log('activate')
   clientsClaim()
-  caches.open(cacheName)
+  await caches.open(cacheName)
     .then((cache) => {
       cache.add('/')
       cache.add('/main.css')
