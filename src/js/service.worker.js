@@ -6,7 +6,7 @@ const version = 'v'
 const cacheName = `ahj-service-${version}`
 const files = [
   '/',
-  '/main.css',
+  '/main.css'
   // '/main.js'
 ]
 
