@@ -3,7 +3,6 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { ServiceWorkerPlugin } = require('service-worker-webpack')
 
-
 module.exports = {
   devtool: 'source-map',
   entry: {
