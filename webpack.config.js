@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { ServiceWorkerPlugin } = require('service-worker-webpack')
+// const { ServiceWorkerPlugin } = require('service-worker-webpack')
 
 module.exports = {
   devtool: 'source-map',
@@ -37,8 +37,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
-    }),
-    new ServiceWorkerPlugin({})
+    })
+    // new ServiceWorkerPlugin({})
 
   ]
 }
