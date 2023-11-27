@@ -7,7 +7,7 @@ const cacheName = `ahj-service-${version}`
 const files = [
   '/',
   '/main.css',
-  '/main.js'
+  // '/main.js'
 ]
 
 self.addEventListener('install', (event) => {
