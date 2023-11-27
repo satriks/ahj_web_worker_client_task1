@@ -1,12 +1,20 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const WorkboxPlugin = require('workbox-webpack-plugin')
+const { ServiceWorkerPlugin } = require('service-worker-webpack')
+// const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
+  entry: {
+    main: './src/index.js',
+    'service.worker': './src/js/service.worker.js'
+  },
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '',
+    filename: '[name].js'
+
   },
   module: {
     rules: [
@@ -18,6 +26,7 @@ module.exports = {
         test: /\.(png|jpg|gif|cur)$/i, dependency: { not: ['url'] }, use: [{ loader: 'url-loader', options: { limit: 8192 } }], type: 'javascript/auto',  // eslint-disable-line
       },
       { test: /\.html$/, include: [path.resolve(__dirname, 'src/js/service-worker.js')], use: { loader: 'file-loader' } }
+      // { test: /sevice-worker\.js$/, use: { loader: "worker-loader" },},
     ]
   },
   resolve: {
@@ -32,9 +41,10 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
-    new WorkboxPlugin.InjectManifest({
-      swSrc: './src/js/service-worker.js'
+    new ServiceWorkerPlugin({})
+    // new WorkboxPlugin.InjectManifest({
+    //   swSrc: './src/js/service-worker.js'
 
-    })
+    // })
   ]
 }
