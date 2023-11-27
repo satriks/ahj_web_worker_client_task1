@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { ServiceWorkerPlugin } = require('service-worker-webpack')
-// const WorkboxPlugin = require('workbox-webpack-plugin')
+
 
 module.exports = {
   devtool: 'source-map',
@@ -40,9 +40,6 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     new ServiceWorkerPlugin({})
-    // new WorkboxPlugin.InjectManifest({
-    //   swSrc: './src/js/service-worker.js'
 
-    // })
   ]
 }
