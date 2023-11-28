@@ -10,7 +10,7 @@ const cacheName = `ahj-service-${version}`
 //   '/main.js'
 // ]
 
-const site = env.siteUrl || ""
+const site = process.env.siteUrl || ''
 // let site = ""
 // if (env.sateUrl) { site = env.sateUrl}
 
