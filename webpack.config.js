@@ -1,5 +1,5 @@
 const path = require('path')
-const process = require('process')
+const process = require('process') //eslint-disable-line
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
