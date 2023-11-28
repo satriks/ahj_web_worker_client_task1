@@ -10,10 +10,7 @@ const cacheName = `ahj-service-${version}`
 //   '/main.js'
 // ]
 
-const site = process.env.SITE_URL || ''
-console.log('this is site: ', site)
-// let site = ""
-// if (env.sateUrl) { site = env.sateUrl}
+const site = '/ahj_web_worker_client_task1'
 
 self.addEventListener('install', (event) => {
   console.log('install')
