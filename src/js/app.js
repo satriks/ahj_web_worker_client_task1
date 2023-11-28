@@ -11,4 +11,7 @@ if ('serviceWorker' in navigator) {
   wb.register()
 }
 
+const test = process.env.SITE_URL
+console.log('this is env from app', test)
+
 setTimeout(() => news.createNews(), 10000)
