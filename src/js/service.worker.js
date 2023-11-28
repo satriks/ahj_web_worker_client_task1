@@ -10,6 +10,10 @@ const cacheName = `ahj-service-${version}`
 //   '/main.js'
 // ]
 
+const site = env.siteUrl || ""
+// let site = ""
+// if (env.sateUrl) { site = env.sateUrl}
+
 self.addEventListener('install', (event) => {
   console.log('install')
   self.skipWaiting()
@@ -20,9 +24,9 @@ self.addEventListener('activate', async (event) => {
   clientsClaim()
   await caches.open(cacheName)
     .then((cache) => {
-      cache.add('/ahj_web_worker_client_task1/')
-      cache.add('/ahj_web_worker_client_task1/main.css')
-      cache.add('/ahj_web_worker_client_task1/main.js')
+      cache.add(site + '/')
+      cache.add(site + '/main.css')
+      cache.add(site + '/main.js')
     })
 })
 
