@@ -20,9 +20,9 @@ self.addEventListener('activate', async (event) => {
   clientsClaim()
   await caches.open(cacheName)
     .then((cache) => {
-      cache.add('/')
-      cache.add('/main.css')
-      cache.add('/main.js')
+      cache.add('/ahj_web_worker_client_task1/')
+      cache.add('/ahj_web_worker_client_task1/main.css')
+      cache.add('/ahj_web_worker_client_task1/main.js')
     })
 })
 
